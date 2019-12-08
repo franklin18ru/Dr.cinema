@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const CardSection = (props) => {
+const CardSectionSmaller = (props) => {
     return (
         <View style={styles.containerStyle}>
             <Text style={styles.textStyle}>
@@ -24,10 +24,10 @@ const styles = {
     },
     textStyle: {
         color: 'white',
-        fontSize: 25,
+        fontSize: 14,
         justifyContent: 'flex-start',
         flexDirection: 'row'
     }
 }
 
-export default CardSection;
+export default CardSectionSmaller;

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAuthentication } from '../../services/authentication';
 import { GetAllCinemas } from '../../services';
-import { GetToken, GetCinemas } from '../actions';
+import { GetToken, GetCinemas, GetCurrentCinema } from '../actions';
 
 
 class Cinemas extends Component {
@@ -27,18 +27,26 @@ class Cinemas extends Component {
         await this.props.GetCinemas(cinemas);
 
     }
+    async goToCinemaScreen(cinema){
+        await this.props.GetCurrentCinema(cinema)
+        this.props.navigation.navigate('CinemaDetailsView')
+
+    }
 
     render(){
         return(
             <ScrollView>
                 <View style={{paddingLeft:5,paddingRight:5}}>
                     <Card>
-                        {this.props.cinemas != undefined ? this.props.cinemas.map(cinema => {
-                            
-                            <CardSection>
-                                {cinema.name}
-                            </CardSection>
-                        })
+                        {this.props.cinemas != undefined ? this.props.cinemas.map(cinema => (
+                            <TouchableHighlight key={cinema.id}
+                            onPress={() => this.goToCinemaScreen(cinema)}>
+                                <CardSection>
+                                    {cinema.name}
+                                    {cinema.website}
+                                </CardSection>
+                            </TouchableHighlight>
+                        ))
                         :<Text style={styles.text}>Loading</Text>}
                     </Card>
                 </View>
@@ -64,4 +72,4 @@ const styles = {
     }
 }
 
-export default connect(mapStateToProps, { GetToken, GetCinemas })(Cinemas);
+export default connect(mapStateToProps, { GetToken, GetCinemas, GetCurrentCinema })(Cinemas);

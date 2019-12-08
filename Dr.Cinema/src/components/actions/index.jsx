@@ -28,3 +28,9 @@ export const GetCurrentMovie = (movie) => {
     }
 };
 
+export const GetCinemasMovies = (movies) => {
+    return {
+        type: constants.GET_CINEMA_MOVIES,
+        payload: movies
+    }
+};
