@@ -39,7 +39,7 @@ export const GetComingSoonMovies = async (token) => {
       console.error(error);
       return [];
     });
-    return result
+    return result;
 };
 
 export const GetCinemaMovies = async (token,cinemaId) => {
