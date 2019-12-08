@@ -6,7 +6,7 @@ class CinemaDetailsView extends Component {
     render(){
         return(
             <View style={{backgroundColor: '#273642', flex:1}}>
-                <CinemaDetails />
+                <CinemaDetails navigation = {this.props.navigation}/>
             </View>
         );
     }

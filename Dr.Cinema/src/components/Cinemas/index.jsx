@@ -22,7 +22,7 @@ class Cinemas extends Component {
 
         const cinemas = await GetAllCinemas(this.props.token);
         // ADD SORT
-        
+
         //
         await this.props.GetCinemas(cinemas);
 

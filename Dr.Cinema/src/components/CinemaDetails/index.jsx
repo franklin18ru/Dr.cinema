@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Button } from 'react-native';
+import { View, Text, ScrollView, Button, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { GetCinemaMovies } from '../../services';
@@ -41,9 +41,17 @@ class CinemaDetails extends Component {
                             Movies
                         </CardSection>
                         {this.props.cinemaMovies != undefined ? this.props.cinemaMovies.map(movie => (
+                            <TouchableHighlight key={movie.id}
+                            onPress={() => this.props.navigation.navigate('MovieDetailsView')}>
                             <CardSectionSmaller>
                                 {movie.title}
+                                {movie.year}
+                                <Image
+                                    style={{ width: 50, height: 50}}
+                                    source={{uri: movie.poster}}
+                                />
                             </CardSectionSmaller>
+                            </TouchableHighlight>
                         ))
                         :<Text>Loading</Text>}
                         </ScrollView>
