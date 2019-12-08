@@ -3,7 +3,7 @@
 // EACH SERVICE FUNCTION SHOULD TAKE token IN AS AN PARAMETER
 // MOVIES HOLD TIMES ON WHAT CINEMA IT'S SHOWN
 
-export const GetCinemas = async (token) => {
+export const GetAllCinemas = async (token) => {
     
     const result = await fetch(`http://api.kvikmyndir.is/theaters`, {
         method: 'GET',
@@ -20,7 +20,7 @@ export const GetCinemas = async (token) => {
       console.error(error);
       return [];
     });
-    return result
+    return result;
 };
 
 export const GetComingSoonMovies = async (token) => {
