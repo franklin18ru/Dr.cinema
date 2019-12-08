@@ -21,6 +21,9 @@ class Cinemas extends Component {
         await this.props.GetToken(token);
 
         const cinemas = await GetAllCinemas(this.props.token);
+        // ADD SORT
+        
+        //
         await this.props.GetCinemas(cinemas);
 
     }
