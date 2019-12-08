@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { View, Text} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {getAuthentication} from '../../services/authentication';
-import {GetCinemas, GetCinemaMovies, GetTest} from '../../services';
+import { getAuthentication } from '../../services/authentication';
+import { GetAllCinemas } from '../../services';
+import { GetToken, GetCinemas } from '../actions';
 
 
 class Cinemas extends Component {
@@ -13,11 +14,11 @@ class Cinemas extends Component {
         // username: olafurb
         // password: ThisIsForAssignment3DrCinema
 
-        // Should add this to state
         const token = await getAuthentication('olafurb','ThisIsForAssignment3DrCinema');
-        const cinemas = await GetCinemas(token);
+        await this.props.GetToken(token);
 
-        
+        const cinemas = await GetAllCinemas(this.props.token);
+        await this.props.GetCinemas(cinemas);
 
     }
     
@@ -34,11 +35,13 @@ class Cinemas extends Component {
 }
 const mapStateToProps = function(state) {
     return {
-        
+        token: state.tokenReducer.token,
+        cinemas: state.cinemaReducer.cinemas
     }
 }
 
 Cinemas.propTypes = {
+    token: PropTypes.string,
     cinemas: PropTypes.array
 }
 
@@ -48,4 +51,4 @@ const styles = {
     }
 }
 
-export default connect(mapStateToProps, null)(Cinemas);
+export default connect(mapStateToProps, { GetToken, GetCinemas })(Cinemas);
