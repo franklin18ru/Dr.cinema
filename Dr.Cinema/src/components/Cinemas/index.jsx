@@ -3,7 +3,7 @@ import { View, Text} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {getAuthentication} from '../../services/authentication';
-import {GetCinemas} from '../../services';
+import {GetCinemas, GetCinemaMovies, GetTest} from '../../services';
 
 
 class Cinemas extends Component {
@@ -15,9 +15,10 @@ class Cinemas extends Component {
 
         // Should add this to state
         const token = await getAuthentication('olafurb','ThisIsForAssignment3DrCinema');
-    
-        // const cinemas = await GetCinemas(token);
-        // console.log(cinemas);
+        const cinemas = await GetCinemas(token);
+
+        
+
     }
     
     render(){
@@ -38,7 +39,7 @@ const mapStateToProps = function(state) {
 }
 
 Cinemas.propTypes = {
-    contacts: PropTypes.array
+    cinemas: PropTypes.array
 }
 
 const styles = {
