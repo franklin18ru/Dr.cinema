@@ -4,8 +4,9 @@ import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {getAuthentication} from '../../services/authentication';
-import {GetCinemas, GetCinemaMovies, GetTest} from '../../services';
+import { getAuthentication } from '../../services/authentication';
+import { GetAllCinemas } from '../../services';
+import { GetToken, GetCinemas } from '../actions';
 
 
 class Cinemas extends Component {
@@ -17,13 +18,20 @@ class Cinemas extends Component {
         // username: olafurb
         // password: ThisIsForAssignment3DrCinema
 
-        // Should add this to state
         const token = await getAuthentication('olafurb','ThisIsForAssignment3DrCinema');
+<<<<<<< HEAD
         const cinemas = await GetCinemas(token);
         //cinemas.map(cinema => {
         //    console.log(cinema.name)
         //    console.log(cinema.website)
         //});
+=======
+        await this.props.GetToken(token);
+
+        const cinemas = await GetAllCinemas(this.props.token);
+        await this.props.GetCinemas(cinemas);
+
+>>>>>>> 263559cee58c61c705f1f70f693a35eeec545a09
     }
 
     render(){
@@ -44,11 +52,17 @@ class Cinemas extends Component {
 }
 const mapStateToProps = function(state) {
     return {
+<<<<<<< HEAD
         cinemas: state.GetCinemas.cinemas
+=======
+        token: state.tokenReducer.token,
+        cinemas: state.cinemaReducer.cinemas
+>>>>>>> 263559cee58c61c705f1f70f693a35eeec545a09
     }
 }
 
 Cinemas.propTypes = {
+    token: PropTypes.string,
     cinemas: PropTypes.array
 }
 
@@ -58,4 +72,8 @@ const styles = {
     }
 }
 
+<<<<<<< HEAD
 export default connect(mapStateToProps, null)(Cinemas);
+=======
+export default connect(mapStateToProps, { GetToken, GetCinemas })(Cinemas);
+>>>>>>> 263559cee58c61c705f1f70f693a35eeec545a09

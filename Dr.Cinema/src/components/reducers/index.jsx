@@ -1,8 +1,14 @@
 import { combineReducers } from 'redux';
 // IMPORT REDUCERS HERE
-import exampleReducer from './ExampleReducer';
+import cinemaReducer from './CinemaReducer';
+import tokenReducer from './TokenReducer';
+import currentCinemaReducer from './CurrentCinemaReducer';
+import currentMovieReducer from './CurrentMovieReducer';
 
 // STATE IS PORTIONED WITH MULTIPLE REDUCERS
 export default combineReducers({
-    exampleReducer:exampleReducer,
+    cinemaReducer:cinemaReducer,
+    tokenReducer:tokenReducer,
+    currentCinemaReducer: currentCinemaReducer,
+    currentMovieReducer: currentMovieReducer
 });
