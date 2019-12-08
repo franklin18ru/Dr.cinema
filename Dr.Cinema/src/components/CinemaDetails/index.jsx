@@ -6,7 +6,7 @@ import { GetCinemaMovies } from '../../services';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import CardSectionSmaller from '../common/CardSectionSmaller';
-import { GetCinemasMovies } from '../actions';
+import { GetCinemasMovies, GetCurrentMovie } from '../actions';
 
 class CinemaDetails extends Component {
     constructor(props){
@@ -15,6 +15,10 @@ class CinemaDetails extends Component {
     async componentWillMount(){
         const cinemaMovies = await GetCinemaMovies(this.props.token, this.props.currentCinema.id)
         await this.props.GetCinemasMovies(cinemaMovies)
+    }
+    async goToMovieScreen(movie){
+        await this.props.GetCurrentMovie(movie)
+        this.props.navigation.navigate('MovieDetailsView')
     }
     render(){
         const { currentCinema } = this.props;
@@ -42,7 +46,7 @@ class CinemaDetails extends Component {
                         </CardSection>
                         {this.props.cinemaMovies != undefined ? this.props.cinemaMovies.map(movie => (
                             <TouchableHighlight key={movie.id}
-                            onPress={() => this.props.navigation.navigate('MovieDetailsView')}>
+                            onPress={() => this.goToMovieScreen(movie)}>
                             <CardSectionSmaller>
                                 {movie.title}
                                 {movie.year}
@@ -67,9 +71,4 @@ const mapStateToProps = function(state) {
         cinemaMovies: state.cinemaMovieReducer.cinemaMovies
     }
 }
-const styles = {
-    details:{
-        fontSize: 11
-    }
-}
-export default connect(mapStateToProps, { GetCinemasMovies })(CinemaDetails);
+export default connect(mapStateToProps, { GetCinemasMovies, GetCurrentMovie })(CinemaDetails);
