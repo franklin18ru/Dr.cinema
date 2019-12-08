@@ -13,7 +13,7 @@ class Home extends Component {
     render(){
         return(
                 <View style={{backgroundColor: '#273642', flex:1}}>
-                    <Cinemas/>
+                    <Cinemas navigation = {this.props.navigation}/>
                 </View>
         );
     }
