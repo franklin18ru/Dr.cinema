@@ -14,7 +14,6 @@ class Cinemas extends Component {
         super(props)
     }
     async componentWillMount(){
-        // CALL getAuthentication HERE ATM
         // username: olafurb
         // password: ThisIsForAssignment3DrCinema
 
@@ -29,13 +28,15 @@ class Cinemas extends Component {
     render(){
         return(
             <ScrollView>
-                <View>
+                <View style={{paddingLeft:5,paddingRight:5}}>
                     <Card>
-                        {this.props.cinemas.map(cinema => {
+                        {this.props.cinemas != undefined ? this.props.cinemas.map(cinema => {
+                            
                             <CardSection>
                                 {cinema.name}
                             </CardSection>
-                        })}
+                        })
+                        :<Text style={styles.text}>Loading</Text>}
                     </Card>
                 </View>
             </ScrollView>
