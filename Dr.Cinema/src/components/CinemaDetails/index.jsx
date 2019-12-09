@@ -8,6 +8,10 @@ import CardSection from '../common/CardSection';
 import CardSectionSmaller from '../common/CardSectionSmaller';
 import { GetCinemasMovies, GetCurrentMovie } from '../actions';
 import Panel from '../common/Panel';
+import CardInfoSection from '../common/CardInfoSection';
+import CardInfoLeft from '../common/CardInfoLeft';
+import CardInfoRight from '../common/CardInfoRight';
+import CardSectionText from '../common/CardSectionText';
 
 const { height } = Dimensions.get('window');
 
@@ -56,23 +60,49 @@ class CinemaDetails extends Component {
                         
                     
                         <CardSection>
-                            Movies
+                            Myndir
                         </CardSection>
                         {this.props.cinemaMovies != undefined ? this.props.cinemaMovies.map(movie => (
                             <TouchableHighlight key={movie.id}
                             onPress={() => this.goToMovieScreen(movie)}>
-                            <CardSectionSmaller>
-                                {movie.title}
-                                {movie.year}
-                                <Image
-                                    style={{ width: 50, height: 50}}
-                                    source={{uri: movie.poster}}
-                                />
-                            </CardSectionSmaller>
+                            <View style={{ backgroundColor : '#23303b', margin: 5, borderRadius: 5}}>
+                                <CardSection>
+                                        {movie.title}
+                                </CardSection>
+                            <CardInfoSection>
+                                
+                                <CardInfoLeft>
+                                    <Image
+                                        style={{ width: 150, height: 200, overflow: 'visible', marginBottom: 10}}
+                                        source={{uri: movie.poster}}
+                                    />
+                                </CardInfoLeft>
+                                {/* Thumbnail, name, release year, genres */}
+                                <CardInfoRight>
+                                    <CardSectionText>
+                                        <Text> Útgáfuár: </Text>
+                                            {movie.year}
+                                    </CardSectionText>
+                                    <CardSectionText>
+                                        <Text> Tegund: </Text>
+                                        {movie.genres.map((genre,index) => {
+                                        return (
+                                            movie.genres.length == index+1 ?
+                                            <Text key={genre.ID}>  {genre.Name} </Text> :
+                                            <Text key={genre.ID}> {genre.Name}, </Text>);
+                                        
+                                        
+                                    })}
+                                    </CardSectionText>
+                                </CardInfoRight>
+
+                                </CardInfoSection>
+                                </View>
                             </TouchableHighlight>
                         ))
                         :<Text>Loading</Text>}
                     </Card>
+                    
                 </ScrollView>
         )
     }
