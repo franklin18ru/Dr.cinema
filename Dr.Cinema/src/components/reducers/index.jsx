@@ -6,6 +6,7 @@ import currentCinemaReducer from './CurrentCinemaReducer';
 import currentMovieReducer from './CurrentMovieReducer';
 import cinemaMovieReducer from './CinemaMovieReducer';
 import currentMovieShowtimesReducer from './CurrentMovieShowtimesReducer';
+import upcomingMoviesReducer from './UpcomingMoviesReducer';
 // STATE IS PORTIONED WITH MULTIPLE REDUCERS
 export default combineReducers({
     cinemaReducer:cinemaReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
     currentCinemaReducer: currentCinemaReducer,
     currentMovieReducer: currentMovieReducer,
     cinemaMovieReducer: cinemaMovieReducer,
-    currentMovieShowtimesReducer: currentMovieShowtimesReducer
+    currentMovieShowtimesReducer: currentMovieShowtimesReducer,
+    upcomingMoviesReducer: upcomingMoviesReducer
 });
