@@ -17,7 +17,7 @@ class Home extends Component {
         },
         title:'Dr.Cinema',
         headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} style={styles.plus} reverse 
-        onPress={()=>{console.log(DrawerActions)}}/>
+        onPress={()=>{console.log(props.navigation.toggleDrawer())}}/>
         }};
 
 
