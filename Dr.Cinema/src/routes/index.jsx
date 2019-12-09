@@ -6,6 +6,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Home from '../views/HomeView';
 import CinemaDetailsView from '../views/CinemaDetailsView';
 import MovieDetailsView from '../views/MovieDetailsView';
+import UpcomingView from '../views/UpcomingView';
 
 
 
@@ -15,8 +16,15 @@ const StackNavigator = createStackNavigator({
     MovieDetailsView,
 });
 
+const SecondStackNavigator = createStackNavigator({
+  UpcomingView,
+});
+
 const AppNavigator = createDrawerNavigator({
-    Dashboard: StackNavigator
+    Cinemas: StackNavigator,
+    Upcoming: SecondStackNavigator
+
+
   });
 
 export default createAppContainer(AppNavigator);

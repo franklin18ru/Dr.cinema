@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Cinemas from '../../components/Cinemas';
+import Upcoming from '../../components/Upcoming';
 
 
 
-class Home extends Component {
+class UpcomingView extends Component {
   
     static navigationOptions = function(props) {
       return {
@@ -15,7 +15,7 @@ class Home extends Component {
         headerStyle: {
           backgroundColor: '#23303b',
         },
-        title:'Cinemas',
+        title:'Upcoming Movies',
         headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} style={styles.plus} reverse 
         onPress={()=>{props.navigation.toggleDrawer()}}/>
         }};
@@ -24,7 +24,7 @@ class Home extends Component {
     render(){
         return(
           <View style={{backgroundColor: '#273642', flex:1}}>
-              <Cinemas navigation = {this.props.navigation}/>
+              <Upcoming navigation = {this.props.navigation}/>
           </View>
         );
     }
@@ -35,4 +35,4 @@ const styles = {
   
 }
 
-export default Home;
+export default UpcomingView;

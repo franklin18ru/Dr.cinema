@@ -34,3 +34,17 @@ export const GetCinemasMovies = (movies) => {
         payload: movies
     }
 };
+
+export const GetMovieShowtimes = (showtimes) => {
+    return {
+        type: constants.GET_MOVIE_SHOWTIMES,
+        payload: showtimes
+    }
+};
+
+export const GetUpcomingMovies = (movies) => {
+    return {
+        type: constants.GET_UPCOMING_MOVIES,
+        payload: movies
+    }
+};
