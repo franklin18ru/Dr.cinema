@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, TouchableHighlight, Linking } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
@@ -11,9 +11,15 @@ import CardSectionText from '../common/CardSectionText';
 import { GetShowtimesForCurrentCinemaMovie } from '../../services';
 import { GetMovieShowtimes } from '../actions';
 
+const { height } = Dimensions.get('window');
+
 class MovieDetails extends Component {
     constructor(props){
         super(props)
+
+        this.state = {
+            screenHeight: 0,
+        };
     }
     async componentWillMount(){
         const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
@@ -25,16 +31,25 @@ class MovieDetails extends Component {
     async goToTrailer(url){
         Linking.openURL(url)
     }
+    onContentSizeChange = (contentWidth, contentHeight) => {
+        this.setState({ screenHeight: contentHeight });
+      };
 
     render(){
         const { currentMovie, currentCinema, token, showtimes } = this.props;
+        const scrollEnabled = this.state.screenHeight > height+2;
         return(
-            <View>
+            
+            
                 <Card>
                     <CardSection>
                         {currentMovie.title}
                     </CardSection>
-                    <ScrollView>
+                    <SafeAreaView>
+                    <ScrollView
+                        scrollEnabled={scrollEnabled}
+                        onContentSizeChange={this.onContentSizeChange}
+                    >
                         <CardInfoSection>
                             <CardInfoLeft>
                                 <Image
@@ -101,8 +116,9 @@ class MovieDetails extends Component {
                         ))))
                          :<Text>Loading</Text>}
                     </ScrollView>
+                    </SafeAreaView>
                 </Card>
-            </View>
+            
         );
     }
 }
