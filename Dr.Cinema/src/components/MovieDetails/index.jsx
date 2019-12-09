@@ -7,7 +7,7 @@ import CardSectionSmaller from '../common/CardSectionSmaller';
 import CardInfoSection from '../common/CardInfoSection';
 import CardInfoLeft from '../common/CardInfoLeft';
 import CardInfoRight from '../common/CardInfoRight';
-import CardSectionText from '../common/CardSectionText'
+import CardSectionText from '../common/CardSectionText';
 import { GetShowtimesForCurrentCinemaMovie } from '../../services';
 import { GetMovieShowtimes } from '../actions';
 
@@ -62,8 +62,6 @@ class MovieDetails extends Component {
                                             currentMovie.genres.length == index+1 ?
                                             <Text key={genre.ID}>  {genre.Name} </Text> :
                                             <Text key={genre.ID}> {genre.Name}, </Text>);
-                                        
-                                        
                                     })}
 
                                 </CardSectionText>
@@ -73,18 +71,23 @@ class MovieDetails extends Component {
                         <CardSectionSmaller>
                             {currentMovie.plot}
                         </CardSectionSmaller>
-                        {currentMovie.trailers != undefined ?
-                         currentMovie.trailers.map(allTrailers =>(
-                             allTrailers.results.map(trailer =>(
-                                 <TouchableHighlight key={trailer.id}
-                                 onPress={() => this.goToTrailer(trailer.url)}>
-                                    <CardSectionSmaller>
-                                        {trailer.name}
-                                    </CardSectionSmaller>
+                        
+                        <CardSectionText>
+                            <Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
+                            {currentMovie.trailers != undefined ?
+                            currentMovie.trailers.map(allTrailers =>(
+                                allTrailers.results.map(trailer =>(
+                                    <TouchableHighlight key={trailer.id}
+                                    onPress={() => this.goToTrailer(trailer.url)}>
+                                        <CardSectionSmaller>
+                                            {trailer.name}
+                                        </CardSectionSmaller>
 
-                            </TouchableHighlight>
-                        ))))
-                         :<Text>Loading</Text>}
+                                </TouchableHighlight>
+                            ))))
+                            :<Text>Loading</Text>}
+                        
+                        <CardSectionText><Text style={{fontSize: 20}}>Sýningartímar: </Text></CardSectionText>
                         {showtimes != undefined ?
                          showtimes.map(showtime =>(
                              showtime.schedule.map(time =>(

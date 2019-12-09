@@ -20,6 +20,7 @@ const styles = {
         flexDirection: 'row',
         position: 'relative',
         borderRadius: 5,
+
     }
 }
 
