@@ -15,7 +15,6 @@ const styles = {
         marginRight: 5,
         marginTop: 5,
         flex: 1,
-        flexDirection: 'flex-end'
     }
 }
 
