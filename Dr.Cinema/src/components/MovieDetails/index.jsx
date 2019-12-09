@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableHighlight, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
@@ -15,9 +15,12 @@ class MovieDetails extends Component {
         const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
         await this.props.GetMovieShowtimes(movieShowtime);
     }
+    async goToTicketPurchase(url){
+        Linking.openURL(url)
+    }
 
     render(){
-        const { currentMovie, currentCinema, token } = this.props;
+        const { currentMovie, currentCinema, token, showtimes } = this.props;
 
         return(
             <View>
@@ -46,13 +49,18 @@ class MovieDetails extends Component {
                         <CardSectionSmaller>
                             {currentMovie.plot}
                         </CardSectionSmaller>
-                        {this.props.showtimes != undefined ? 
-                        this.props.showtimes.map(showtime =>(
-                            <CardSectionSmaller>
-                                {showtime.cinema.name}
-                            </CardSectionSmaller>
-                        ))
-                         : <Text>Loading</Text>}
+                        {showtimes != undefined ?
+                         showtimes.map(showtime =>(
+                             showtime.schedule.map(time =>(
+                                 <TouchableHighlight key={showtime.cinema.id}
+                                 onPress={() => this.goToTicketPurchase(time.purchase_url)}>
+                                    <CardSectionSmaller>
+                                        {time.time}
+                                    </CardSectionSmaller>
+
+                            </TouchableHighlight>
+                        ))))
+                         :<Text>Loading</Text>}
                     </ScrollView>
                 </Card>
             </View>
