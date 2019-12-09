@@ -4,15 +4,21 @@ import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import CardSectionSmaller from '../common/CardSectionSmaller';
+import { GetShowtimesForCurrentCinemaMovie } from '../../services';
 
 class MovieDetails extends Component {
     constructor(props){
         super(props)
     }
+    async componentWillMount(){
+        const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
+        console.log(movieShowtime)
+        console.log("Eftir logg")
+    }
 
     render(){
-        const { currentMovie } = this.props;
-        console.log(currentMovie.genres)
+        const { currentMovie, currentCinema, token } = this.props;
+
         return(
             <View>
                 <Card>
