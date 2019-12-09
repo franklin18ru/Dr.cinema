@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, TouchableHighlight, Linking } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
@@ -7,13 +7,19 @@ import CardSectionSmaller from '../common/CardSectionSmaller';
 import CardInfoSection from '../common/CardInfoSection';
 import CardInfoLeft from '../common/CardInfoLeft';
 import CardInfoRight from '../common/CardInfoRight';
-import CardSectionText from '../common/CardSectionText'
+import CardSectionText from '../common/CardSectionText';
 import { GetShowtimesForCurrentCinemaMovie } from '../../services';
 import { GetMovieShowtimes } from '../actions';
+
+const { height } = Dimensions.get('window');
 
 class MovieDetails extends Component {
     constructor(props){
         super(props)
+
+        this.state = {
+            screenHeight: 0,
+        };
     }
     async componentWillMount(){
         const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
@@ -25,16 +31,25 @@ class MovieDetails extends Component {
     async goToTrailer(url){
         Linking.openURL(url)
     }
+    onContentSizeChange = (contentWidth, contentHeight) => {
+        this.setState({ screenHeight: contentHeight });
+      };
 
     render(){
         const { currentMovie, currentCinema, token, showtimes } = this.props;
+        const scrollEnabled = this.state.screenHeight > height+2;
         return(
-            <View>
+            
+            
                 <Card>
                     <CardSection>
                         {currentMovie.title}
                     </CardSection>
-                    <ScrollView>
+                    <SafeAreaView>
+                    <ScrollView
+                        scrollEnabled={scrollEnabled}
+                        onContentSizeChange={this.onContentSizeChange}
+                    >
                         <CardInfoSection>
                             <CardInfoLeft>
                                 <Image
@@ -62,8 +77,6 @@ class MovieDetails extends Component {
                                             currentMovie.genres.length == index+1 ?
                                             <Text key={genre.ID}>  {genre.Name} </Text> :
                                             <Text key={genre.ID}> {genre.Name}, </Text>);
-                                        
-                                        
                                     })}
 
                                 </CardSectionText>
@@ -73,18 +86,23 @@ class MovieDetails extends Component {
                         <CardSectionSmaller>
                             {currentMovie.plot}
                         </CardSectionSmaller>
-                        {currentMovie.trailers != undefined ?
-                         currentMovie.trailers.map(allTrailers =>(
-                             allTrailers.results.map(trailer =>(
-                                 <TouchableHighlight key={trailer.id}
-                                 onPress={() => this.goToTrailer(trailer.url)}>
-                                    <CardSectionSmaller>
-                                        {trailer.name}
-                                    </CardSectionSmaller>
+                        
+                        <CardSectionText>
+                            <Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
+                            {currentMovie.trailers != undefined ?
+                            currentMovie.trailers.map(allTrailers =>(
+                                allTrailers.results.map(trailer =>(
+                                    <TouchableHighlight key={trailer.id}
+                                    onPress={() => this.goToTrailer(trailer.url)}>
+                                        <CardSectionSmaller>
+                                            {trailer.name}
+                                        </CardSectionSmaller>
 
-                            </TouchableHighlight>
-                        ))))
-                         :<Text>Loading</Text>}
+                                </TouchableHighlight>
+                            ))))
+                            :<Text>Loading</Text>}
+                        
+                        <CardSectionText><Text style={{fontSize: 20}}>Sýningartímar: </Text></CardSectionText>
                         {showtimes != undefined ?
                          showtimes.map(showtime =>(
                              showtime.schedule.map(time =>(
@@ -98,8 +116,9 @@ class MovieDetails extends Component {
                         ))))
                          :<Text>Loading</Text>}
                     </ScrollView>
+                    </SafeAreaView>
                 </Card>
-            </View>
+            
         );
     }
 }
