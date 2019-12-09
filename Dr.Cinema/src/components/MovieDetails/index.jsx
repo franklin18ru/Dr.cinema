@@ -5,6 +5,7 @@ import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import CardSectionSmaller from '../common/CardSectionSmaller';
 import { GetShowtimesForCurrentCinemaMovie } from '../../services';
+import { GetMovieShowtimes } from '../actions';
 
 class MovieDetails extends Component {
     constructor(props){
@@ -12,7 +13,7 @@ class MovieDetails extends Component {
     }
     async componentWillMount(){
         const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
-        console.log(movieShowtime)
+        await this.props.GetMovieShowtimes(movieShowtime);
     }
 
     render(){
@@ -45,6 +46,13 @@ class MovieDetails extends Component {
                         <CardSectionSmaller>
                             {currentMovie.plot}
                         </CardSectionSmaller>
+                        {this.props.showtimes != undefined ? 
+                        this.props.showtimes.map(showtime =>(
+                            <CardSectionSmaller>
+                                {showtime.cinema.name}
+                            </CardSectionSmaller>
+                        ))
+                         : <Text>Loading</Text>}
                     </ScrollView>
                 </Card>
             </View>
@@ -56,8 +64,9 @@ const mapStateToProps = function(state) {
     return {
         token: state.tokenReducer.token,
         currentCinema: state.currentCinemaReducer.cinema,
-        currentMovie: state.currentMovieReducer.movie
+        currentMovie: state.currentMovieReducer.movie,
+        showtimes: state.currentMovieShowtimesReducer.showtimes
     }
 }
 
-export default connect(mapStateToProps, null)(MovieDetails);
+export default connect(mapStateToProps, { GetMovieShowtimes })(MovieDetails);
