@@ -13,7 +13,6 @@ class MovieDetails extends Component {
     async componentWillMount(){
         const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
         console.log(movieShowtime)
-        console.log("Eftir logg")
     }
 
     render(){
