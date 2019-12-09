@@ -12,6 +12,7 @@ class MovieDetails extends Component {
 
     render(){
         const { currentMovie } = this.props;
+        console.log(currentMovie.genres)
         return(
             <View>
                 <Card>
@@ -25,6 +26,11 @@ class MovieDetails extends Component {
                         <CardSectionSmaller>
                             {currentMovie.durationMinutes}
                         </CardSectionSmaller>
+                        {currentMovie.genres.map(genre => (
+                            <CardSectionSmaller>
+                                {genre.Name}
+                            </CardSectionSmaller>
+                        ))}
                         <CardSectionSmaller>
                             <Image
                                 style={{width: 50, height: 50}}
