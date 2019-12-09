@@ -18,10 +18,12 @@ class MovieDetails extends Component {
     async goToTicketPurchase(url){
         Linking.openURL(url)
     }
+    async goToTrailer(url){
+        Linking.openURL(url)
+    }
 
     render(){
         const { currentMovie, currentCinema, token, showtimes } = this.props;
-
         return(
             <View>
                 <Card>
@@ -49,6 +51,18 @@ class MovieDetails extends Component {
                         <CardSectionSmaller>
                             {currentMovie.plot}
                         </CardSectionSmaller>
+                        {currentMovie.trailers != undefined ?
+                         currentMovie.trailers.map(allTrailers =>(
+                             allTrailers.results.map(trailer =>(
+                                 <TouchableHighlight key={trailer.id}
+                                 onPress={() => this.goToTrailer(trailer.url)}>
+                                    <CardSectionSmaller>
+                                        {trailer.name}
+                                    </CardSectionSmaller>
+
+                            </TouchableHighlight>
+                        ))))
+                         :<Text>Loading</Text>}
                         {showtimes != undefined ?
                          showtimes.map(showtime =>(
                              showtime.schedule.map(time =>(
