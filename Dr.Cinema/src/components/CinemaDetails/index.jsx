@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Button, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, ScrollView, Button, Image, TouchableHighlight, Dimensions, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { GetCinemaMovies } from '../../services';
@@ -18,11 +18,21 @@ const { height } = Dimensions.get('window');
 class CinemaDetails extends Component {
     constructor(props){
         super(props)
-
+        const { height } = Dimensions.get('window');
         this.state = {
-            screenHeight: 0,
+            screenHeight: height,
+            scrollEnabled: false,
         };
     }
+
+    contentChanged(height){
+        if(this.state.screenHeight-100 < height){
+          this.setState({scrollEnabled:true})
+          return
+        }
+        this.setState({scrollEnabled:false})
+    }
+
     async componentWillMount(){
         const cinemaMovies = await GetCinemaMovies(this.props.token, this.props.currentCinema.id)
         await this.props.GetCinemasMovies(cinemaMovies)
@@ -36,12 +46,9 @@ class CinemaDetails extends Component {
       };
     render(){
         const { currentCinema } = this.props;
-        const scrollEnabled = this.state.screenHeight > height+100;
         return(
-                <ScrollView
-                scrollEnabled={scrollEnabled}
-                onContentSizeChange={this.onContentSizeChange}
-                >
+            <SafeAreaView>
+            <ScrollView scrollEnabled={this.state.scrollEnabled} onContentSizeChange={(w,h)=>{this.contentChanged(h)}}>
                     <Card>
                         <Panel title = {currentCinema.name}>
                             <CardSectionSmaller>
@@ -103,7 +110,8 @@ class CinemaDetails extends Component {
                         :<Text>Loading</Text>}
                     </Card>
                     
-                </ScrollView>
+            </ScrollView>
+            </SafeAreaView>
         )
     }
 }

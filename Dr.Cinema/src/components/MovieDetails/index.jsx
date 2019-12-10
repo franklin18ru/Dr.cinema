@@ -11,16 +11,26 @@ import CardSectionText from '../common/CardSectionText';
 import { GetShowtimesForCurrentCinemaMovie } from '../../services';
 import { GetMovieShowtimes } from '../actions';
 
-const { height } = Dimensions.get('window');
 
 class MovieDetails extends Component {
     constructor(props){
         super(props)
-
+        const { height } = Dimensions.get('window');
         this.state = {
-            screenHeight: 0,
+            screenHeight: height,
+            scrollEnabled: false,
         };
     }
+
+    contentChanged(height){
+        if(this.state.screenHeight-100 < height){
+          this.setState({scrollEnabled:true})
+          return
+        }
+        this.setState({scrollEnabled:false})
+      }
+
+
     async componentWillMount(){
         const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
         await this.props.GetMovieShowtimes(movieShowtime);
@@ -37,13 +47,9 @@ class MovieDetails extends Component {
 
     render(){
         const { currentMovie, currentCinema, token, showtimes } = this.props;
-        const scrollEnabled = this.state.screenHeight > height+2;
         return(
             <SafeAreaView>
-            <ScrollView
-                        scrollEnabled={scrollEnabled}
-                        onContentSizeChange={this.onContentSizeChange}
-            >
+            <ScrollView scrollEnabled={this.state.scrollEnabled} onContentSizeChange={(w,h)=>{this.contentChanged(h)}}>
                 <Card>
                     <CardSection>
                         {currentMovie.title}
