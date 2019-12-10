@@ -21,9 +21,15 @@ class Cinemas extends Component {
         await this.props.GetToken(token);
 
         const cinemas = await GetAllCinemas(this.props.token);
-        // ADD SORT
-
-        //
+ 
+        cinemas.sort(function(a,b){
+            let stringA = a.name.replace(',','').toLowerCase();
+            let stringB = b.name.replace(',','').toLowerCase();
+            if(stringA < stringB){return -1;}
+            if(stringA > stringB){return 1;}
+            return 0;
+        })
+  
         await this.props.GetCinemas(cinemas);
 
     }

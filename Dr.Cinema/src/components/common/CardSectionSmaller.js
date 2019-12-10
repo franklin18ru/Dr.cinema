@@ -26,7 +26,8 @@ const styles = {
         color: 'white',
         fontSize: 14,
         justifyContent: 'flex-start',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        textAlign: 'justify'
     }
 }
 

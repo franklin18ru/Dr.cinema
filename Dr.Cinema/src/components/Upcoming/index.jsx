@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, Image } from 'react-native';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { GetComingSoonMovies } from '../../services';
 import { GetUpcomingMovies } from '../actions';
+import CardInfoRight from '../common/CardInfoRight';
+import CardInfoLeft from '../common/CardInfoLeft';
+import CardSectionText from '../common/CardSectionText';
+import CardInfoSection from '../common/CardInfoSection';
 
 
 class Upcoming extends Component {
@@ -15,11 +19,17 @@ class Upcoming extends Component {
     async componentWillMount(){
        
 
-        const upcomingMoives = await GetComingSoonMovies(this.props.token);
-        // ADD SORT
+        const upcomingMovies = await GetComingSoonMovies(this.props.token);
 
-        //
-        await this.props.GetUpcomingMovies(upcomingMoives);
+        upcomingMovies.sort(function(a,b){
+            let dateA = new Date(a['release-dateIS']);
+            let dateB = new Date(b['release-dateIS']);
+            if(dateA < dateB){return -1;}
+            if(dateA > dateB){return 1;}
+            return 0;
+        })
+
+        await this.props.GetUpcomingMovies(upcomingMovies);
 
     }
     
@@ -32,11 +42,24 @@ class Upcoming extends Component {
                         {this.props.upcomingMovies != undefined ? this.props.upcomingMovies.map(movie => (
                             <TouchableHighlight key={movie.id}
                             onPress={() => {}}>
+                            <View style={{ backgroundColor : '#23303b', margin: 5, borderRadius: 5}}>
                                 <CardSection>
                                     {movie.title}
-                                    {movie['release-dateIS']}
-                                    {movie.poster}
                                 </CardSection>
+                                <CardInfoSection>
+                                    <CardInfoLeft>
+                                        <Image
+                                            style={{width: 150, height: 200, overflow: 'visible', marginBottom: 10}}
+                                            source={{uri: movie.poster}}
+                                        />
+                                    </CardInfoLeft>
+                                    <CardInfoRight>
+                                        <CardSectionText>
+                                            {movie['release-dateIS']}
+                                        </CardSectionText>
+                                    </CardInfoRight>
+                                </CardInfoSection>
+                            </View>
                             </TouchableHighlight>
                         ))
                         :<Text style={styles.text}>Loading</Text>}

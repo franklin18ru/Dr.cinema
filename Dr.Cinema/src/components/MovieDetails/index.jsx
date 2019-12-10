@@ -39,17 +39,17 @@ class MovieDetails extends Component {
         const { currentMovie, currentCinema, token, showtimes } = this.props;
         const scrollEnabled = this.state.screenHeight > height+2;
         return(
-            
-            
+            <SafeAreaView>
+            <ScrollView
+                        scrollEnabled={scrollEnabled}
+                        onContentSizeChange={this.onContentSizeChange}
+            >
                 <Card>
                     <CardSection>
                         {currentMovie.title}
                     </CardSection>
-                    <SafeAreaView>
-                    <ScrollView
-                        scrollEnabled={scrollEnabled}
-                        onContentSizeChange={this.onContentSizeChange}
-                    >
+                    
+                    
                         <CardInfoSection>
                             <CardInfoLeft>
                                 <Image
@@ -106,7 +106,7 @@ class MovieDetails extends Component {
                         {showtimes != undefined ?
                          showtimes.map(showtime =>(
                              showtime.schedule.map(time =>(
-                                 <TouchableHighlight key={showtime.cinema.id}
+                                 <TouchableHighlight key={time.time}
                                  onPress={() => this.goToTicketPurchase(time.purchase_url)}>
                                     <CardSectionSmaller>
                                         {time.time}
@@ -115,10 +115,10 @@ class MovieDetails extends Component {
                             </TouchableHighlight>
                         ))))
                          :<Text>Loading</Text>}
-                    </ScrollView>
-                    </SafeAreaView>
+                    
                 </Card>
-            
+            </ScrollView>
+            </SafeAreaView>
         );
     }
 }
