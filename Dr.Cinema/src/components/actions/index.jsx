@@ -48,3 +48,10 @@ export const GetUpcomingMovies = (movies) => {
         payload: movies
     }
 };
+
+export const GetCurrentUpcomingMovie = (movie) => {
+    return {
+        type: constants.GET_CURRENT_UPCOMING_MOVIE,
+        payload: movie
+    }
+};

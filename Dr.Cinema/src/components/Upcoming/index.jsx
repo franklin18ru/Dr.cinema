@@ -5,7 +5,7 @@ import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { GetComingSoonMovies } from '../../services';
-import { GetUpcomingMovies } from '../actions';
+import { GetUpcomingMovies, GetCurrentUpcomingMovie } from '../actions';
 import CardInfoRight from '../common/CardInfoRight';
 import CardInfoLeft from '../common/CardInfoLeft';
 import CardSectionText from '../common/CardSectionText';
@@ -32,7 +32,10 @@ class Upcoming extends Component {
         await this.props.GetUpcomingMovies(upcomingMovies);
 
     }
-    
+    async goToMovieScreen(movie){
+        await this.props.GetCurrentUpcomingMovie(movie)
+        this.props.navigation.navigate('UpcomingMovieDetailsView')
+    }
 
     render(){
         return(
@@ -41,7 +44,7 @@ class Upcoming extends Component {
                     <Card>
                         {this.props.upcomingMovies != undefined ? this.props.upcomingMovies.map(movie => (
                             <TouchableHighlight key={movie.id}
-                            onPress={() => {}}>
+                            onPress={() => {this.goToMovieScreen(movie)}}>
                             <View style={{ backgroundColor : '#23303b', margin: 5, borderRadius: 5}}>
                                 <CardSection>
                                     {movie.title}
@@ -87,4 +90,4 @@ const styles = {
     }
 }
 
-export default connect(mapStateToProps, { GetUpcomingMovies })(Upcoming);
+export default connect(mapStateToProps, { GetUpcomingMovies, GetCurrentUpcomingMovie })(Upcoming);
