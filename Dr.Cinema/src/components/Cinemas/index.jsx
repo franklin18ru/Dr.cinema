@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, Dimensions, SafeAreaView } from 'react-native';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
@@ -12,7 +12,22 @@ import { GetToken, GetCinemas, GetCurrentCinema } from '../actions';
 class Cinemas extends Component {
     constructor(props){
         super(props)
+        const { height } = Dimensions.get('window');
+        this.state = {
+            screenHeight: height,
+            scrollEnabled: false,
+        };
     }
+
+    contentChanged(height){
+        if(this.state.screenHeight-100 < height){
+          this.setState({scrollEnabled:true})
+          return
+        }
+        this.setState({scrollEnabled:false})
+    }
+
+
     async componentWillMount(){
         // username: olafurb
         // password: ThisIsForAssignment3DrCinema
@@ -41,7 +56,8 @@ class Cinemas extends Component {
 
     render(){
         return(
-            <ScrollView>
+            <SafeAreaView>
+            <ScrollView scrollEnabled={this.state.scrollEnabled} onContentSizeChange={(w,h)=>{this.contentChanged(h)}}>
                 <View style={{paddingLeft:5,paddingRight:5}}>
                     <Card>
                         {this.props.cinemas != undefined ? this.props.cinemas.map(cinema => (
@@ -57,6 +73,7 @@ class Cinemas extends Component {
                     </Card>
                 </View>
             </ScrollView>
+            </SafeAreaView>
         );
     }
 }
