@@ -7,7 +7,12 @@ import PropTypes from 'prop-types';
 import { getAuthentication } from '../../services/authentication';
 import { GetAllCinemas } from '../../services';
 import { GetToken, GetCinemas, GetCurrentCinema } from '../actions';
-
+import CardSectionSmaller from '../common/CardSectionSmaller';
+import CardSectionText from '../common/CardSectionText';
+import CardInfoSection from '../common/CardInfoRight';
+import CardInfoSectionTop from '../common/CardSectionTop';
+import CardSectionTop from '../common/CardSectionTop';
+import CardSectionBottom from '../common/CardSectionBottom';
 
 class Cinemas extends Component {
     constructor(props){
@@ -56,24 +61,30 @@ class Cinemas extends Component {
 
     render(){
         return(
-            <SafeAreaView>
             <ScrollView scrollEnabled={this.state.scrollEnabled} onContentSizeChange={(w,h)=>{this.contentChanged(h)}}>
+              <SafeAreaView>
                 <View style={{paddingLeft:5,paddingRight:5}}>
                     <Card>
                         {this.props.cinemas != undefined ? this.props.cinemas.map(cinema => (
                             <TouchableHighlight key={cinema.id}
                             onPress={() => this.goToCinemaScreen(cinema)}>
-                                <CardSection>
-                                    {cinema.name}
-                                    {cinema.website}
-                                </CardSection>
+                                <View style={{ backgroundColor : '#23303b', margin: 7, borderRadius: 5}}>
+                                <CardInfoSection>
+                                    <CardSectionTop>
+                                        {cinema.name}
+                                    </CardSectionTop>
+                                    <CardSectionBottom>
+                                        {cinema.website}
+                                    </CardSectionBottom>                                    
+                                </CardInfoSection>
+                                </View>
                             </TouchableHighlight>
                         ))
                         :<Text style={styles.text}>Loading</Text>}
                     </Card>
                 </View>
-            </ScrollView>
-            </SafeAreaView>
+                </SafeAreaView>
+              </ScrollView>
         );
     }
 }

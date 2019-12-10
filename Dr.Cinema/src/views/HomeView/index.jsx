@@ -10,12 +10,14 @@ class Home extends Component {
     static navigationOptions = function(props) {
       return {
         headerTitleStyle: {
-          color:'white'
+          color:'white',
+          fontSize: 25
         },
         headerStyle: {
-          backgroundColor: '#23303b',
+          backgroundColor: '#273642',
+          borderBottomWidth: 0,
         },
-        title:'Cinemas',
+        title:'Kvikmyndahús',
         headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} style={styles.plus} reverse 
         onPress={()=>{props.navigation.toggleDrawer()}}/>
         }};
