@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Button, Image, TouchableHighlight, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, Button, Image, TouchableHighlight, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { GetCinemaMovies } from '../../services';
@@ -107,7 +107,7 @@ class CinemaDetails extends Component {
                                 </View>
                             </TouchableHighlight>
                         ))
-                        :<Text>Loading</Text>}
+                        :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
                     </Card>
                     
             </ScrollView>
@@ -122,4 +122,20 @@ const mapStateToProps = function(state) {
         cinemaMovies: state.cinemaMovieReducer.cinemaMovies
     }
 }
+
+const styles = {
+    text:{
+        color: 'white'
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center'
+      },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10
+    }
+}
+
 export default connect(mapStateToProps, { GetCinemasMovies, GetCurrentMovie })(CinemaDetails);
