@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView } from 'react-native';
+import { View ,Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
@@ -10,6 +10,7 @@ import CardInfoRight from '../common/CardInfoRight';
 import CardSectionText from '../common/CardSectionText';
 import { GetShowtimesForCurrentCinemaMovie } from '../../services';
 import { GetMovieShowtimes, GetCurrentTrailer } from '../actions';
+
 
 
 class MovieDetails extends Component {
@@ -67,6 +68,14 @@ class MovieDetails extends Component {
                                 />
                             </CardInfoLeft>
                             <CardInfoRight>
+                                <CardSectionText>
+                                    <Image
+                                    style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
+                                    source={{uri: "https://www.pocketpicturesltd.com/wp-content/uploads/2018/06/imdb.png"}}
+                                    />
+                                    <Text>  </Text>
+                                    {currentMovie.ratings.imdb}
+                                </CardSectionText>
 
                                 <CardSectionText>
                                     <Text>Útgáfuár: </Text>
@@ -106,7 +115,7 @@ class MovieDetails extends Component {
                                         </CardSectionSmaller>
                                     </TouchableHighlight>
                             ))))
-                            :<Text>Loading</Text>}
+                            :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
                         
                         <CardSectionText><Text style={{fontSize: 20}}>Sýningartímar: </Text></CardSectionText>
                         {showtimes != undefined ?
@@ -120,7 +129,7 @@ class MovieDetails extends Component {
 
                             </TouchableHighlight>
                         ))))
-                         :<Text>Loading</Text>}
+                         :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
                     
                 </Card>
             </ScrollView>
@@ -135,6 +144,21 @@ const mapStateToProps = function(state) {
         currentCinema: state.currentCinemaReducer.cinema,
         currentMovie: state.currentMovieReducer.movie,
         showtimes: state.currentMovieShowtimesReducer.showtimes
+    }
+}
+
+const styles = {
+    text:{
+        color: 'white'
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center'
+      },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10
     }
 }
 
