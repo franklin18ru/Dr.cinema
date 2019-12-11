@@ -55,3 +55,10 @@ export const GetCurrentUpcomingMovie = (movie) => {
         payload: movie
     }
 };
+
+export const GetCurrentTrailer = (trailer) => {
+    return {
+        type: constants.GET_CURRENT_TRAILER,
+        payload: trailer
+    }
+};

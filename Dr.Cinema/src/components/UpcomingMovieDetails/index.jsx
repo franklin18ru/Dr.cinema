@@ -8,7 +8,7 @@ import CardInfoSection from '../common/CardInfoSection';
 import CardInfoLeft from '../common/CardInfoLeft';
 import CardInfoRight from '../common/CardInfoRight';
 import CardSectionText from '../common/CardSectionText';
-import { GetShowtimesForCurrentCinemaMovie } from '../../services';
+import { GetCurrentTrailer } from '../actions';
 
 const { height } = Dimensions.get('window');
 
@@ -21,8 +21,9 @@ class UpcomingMovieDetails extends Component {
         };
     }
     
-    async goToTrailer(url){
-        Linking.openURL(url)
+    async goToTrailer(trailer){
+        await this.props.GetCurrentTrailer(trailer)
+        this.props.navigation.navigate('TrailerDetailView')
     }
     
     onContentSizeChange = (contentWidth, contentHeight) => {
@@ -81,7 +82,7 @@ class UpcomingMovieDetails extends Component {
                             currentMovie.trailers.map(allTrailers =>(
                                 allTrailers.results.map(trailer =>(
                                     <TouchableHighlight key={trailer.id}
-                                    onPress={() => this.goToTrailer(trailer.url)}>
+                                    onPress={() => this.goToTrailer(trailer)}>
                                         <CardSectionSmaller>
                                             {trailer.name}
                                         </CardSectionSmaller>
@@ -105,4 +106,4 @@ const mapStateToProps = function(state) {
     }
 }
 
-export default connect(mapStateToProps)(UpcomingMovieDetails);
+export default connect(mapStateToProps, { GetCurrentTrailer })(UpcomingMovieDetails);

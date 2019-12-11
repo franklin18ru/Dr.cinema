@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView } from 'react-native';
+import { Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
@@ -9,7 +9,7 @@ import CardInfoLeft from '../common/CardInfoLeft';
 import CardInfoRight from '../common/CardInfoRight';
 import CardSectionText from '../common/CardSectionText';
 import { GetShowtimesForCurrentCinemaMovie } from '../../services';
-import { GetMovieShowtimes } from '../actions';
+import { GetMovieShowtimes, GetCurrentTrailer } from '../actions';
 
 
 class MovieDetails extends Component {
@@ -38,8 +38,11 @@ class MovieDetails extends Component {
     async goToTicketPurchase(url){
         Linking.openURL(url)
     }
-    async goToTrailer(url){
-        Linking.openURL(url)
+    async goToTrailer(trailer){
+        // Add to reducer and navigation to trailer view
+        await this.props.GetCurrentTrailer(trailer)
+        this.props.navigation.navigate('TrailerDetailView')
+        // Linking.openURL(trailer.url)
     }
     onContentSizeChange = (contentWidth, contentHeight) => {
         this.setState({ screenHeight: contentHeight });
@@ -93,18 +96,15 @@ class MovieDetails extends Component {
                             {currentMovie.plot}
                         </CardSectionSmaller>
                         
-                        <CardSectionText>
-                            <Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
+                        <CardSectionText><Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
                             {currentMovie.trailers != undefined ?
                             currentMovie.trailers.map(allTrailers =>(
-                                allTrailers.results.map(trailer =>(
-                                    <TouchableHighlight key={trailer.id}
-                                    onPress={() => this.goToTrailer(trailer.url)}>
+                                allTrailers.results.map((trailer,index) =>(
+                                    <TouchableHighlight key={trailer.id} onPress={() => this.goToTrailer(trailer)}>
                                         <CardSectionSmaller>
                                             {trailer.name}
                                         </CardSectionSmaller>
-
-                                </TouchableHighlight>
+                                    </TouchableHighlight>
                             ))))
                             :<Text>Loading</Text>}
                         
@@ -138,4 +138,4 @@ const mapStateToProps = function(state) {
     }
 }
 
-export default connect(mapStateToProps, { GetMovieShowtimes })(MovieDetails);
+export default connect(mapStateToProps, { GetMovieShowtimes, GetCurrentTrailer })(MovieDetails);
