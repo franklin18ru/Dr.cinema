@@ -16,7 +16,6 @@ class TrailerDetail extends Component {
             useWebKit={true}
             style={styles.container}
             javaScriptEnabled={true}
-            scalesPageToFit
             source={{
                 uri: trailer.url,
             }}
