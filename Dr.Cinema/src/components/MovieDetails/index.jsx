@@ -36,7 +36,7 @@ class MovieDetails extends Component {
         const movieShowtime = await GetShowtimesForCurrentCinemaMovie(this.props.token, this.props.currentCinema.id, this.props.currentMovie.id)
         await this.props.GetMovieShowtimes(movieShowtime);
     }
-    async goToTicketPurchase(url){
+    async goToURL(url){
         Linking.openURL(url)
     }
     async goToTrailer(trailer){
@@ -45,12 +45,14 @@ class MovieDetails extends Component {
         this.props.navigation.navigate('TrailerDetailView')
         // Linking.openURL(trailer.url)
     }
+
     onContentSizeChange = (contentWidth, contentHeight) => {
         this.setState({ screenHeight: contentHeight });
       };
 
     render(){
         const { currentMovie, currentCinema, token, showtimes } = this.props;
+        const imdbUrl = 'https://www.imdb.com/title/'.concat(currentMovie.omdb[0].imdbID)
         return(
             <SafeAreaView>
             <ScrollView scrollEnabled={this.state.scrollEnabled} onContentSizeChange={(w,h)=>{this.contentChanged(h)}}>
@@ -68,15 +70,21 @@ class MovieDetails extends Component {
                                 />
                             </CardInfoLeft>
                             <CardInfoRight>
-                                
-                                <CardSectionText>
+                                    <TouchableHighlight 
+                                    onPress={() => this.goToURL(imdbUrl)}
+                                    underlayColor = 'transparent'
+                                    >
                                     <Image
-                                    style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
-                                    source={{uri: "https://www.pocketpicturesltd.com/wp-content/uploads/2018/06/imdb.png"}}
+                                        style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
+                                        source={{uri: "https://www.pocketpicturesltd.com/wp-content/uploads/2018/06/imdb.png"}}
                                     />
+                                    </TouchableHighlight>
+                                    <CardSectionText>
                                     <Text>  </Text>
                                     {currentMovie.ratings.imdb}
+                                    
                                 </CardSectionText>
+                                
 
                                 <CardSectionText>
                                     <Text>Útgáfuár: </Text>
@@ -102,7 +110,10 @@ class MovieDetails extends Component {
 
                                 <CardSectionText>
                                     <Text>Aldurstakmark: </Text>
-                                    {currentMovie.certificate.is}
+                                    {currentMovie.certificate != undefined ?
+                                        currentMovie.certificate.is
+                                    :<Text> Óskilgreint </Text>  }
+                    
                                 </CardSectionText>
 
                             </CardInfoRight>
@@ -111,9 +122,8 @@ class MovieDetails extends Component {
                         <CardSectionSmaller>
                             {currentMovie.plot}
                         </CardSectionSmaller>
-                        
                         <CardSectionText><Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
-                            {currentMovie.trailers != undefined ?
+                            {currentMovie.trailers[0].results[0] != undefined ?
                             currentMovie.trailers.map(allTrailers =>(
                                 allTrailers.results.map((trailer,index) =>(
                                     <TouchableHighlight key={trailer.id} onPress={() => this.goToTrailer(trailer)}>
@@ -122,14 +132,16 @@ class MovieDetails extends Component {
                                         </CardSectionSmaller>
                                     </TouchableHighlight>
                             ))))
-                            :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
+                            :<CardSectionText><Text> Ekkert sýningarbrot á skrá </Text></CardSectionText>}
                         
                         <CardSectionText><Text style={{fontSize: 20}}>Sýningartímar: </Text></CardSectionText>
                         {showtimes != undefined ?
                          showtimes.map(showtime =>(
                              showtime.schedule.map(time =>(
                                  <TouchableHighlight key={time.time}
-                                 onPress={() => this.goToTicketPurchase(time.purchase_url)}>
+                                 onPress={() => this.goToURL(time.purchase_url)}
+                                 underlayColor = 'transparent'
+                                 >
                                     <CardSectionSmaller>
                                         {time.time}
                                     </CardSectionSmaller>

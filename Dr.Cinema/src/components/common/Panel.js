@@ -51,8 +51,9 @@ class Panel extends Component{
 
                     <TouchableHighlight 
                     onPress={this.changeLayout}
-                    underlayColor="white"
+                    underlayColor="transparent"
                     >
+                        
                         { icon }
                     </TouchableHighlight>
                 </View>

@@ -8,6 +8,7 @@ class UpcomingMovieDetailsView extends Component {
           backgroundColor: '#273642',
           borderBottomWidth: 0,
         },
+        headerTintColor: 'white',
       };
     render(){
         return (
