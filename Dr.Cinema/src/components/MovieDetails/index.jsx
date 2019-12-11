@@ -12,6 +12,7 @@ import { GetShowtimesForCurrentCinemaMovie } from '../../services';
 import { GetMovieShowtimes } from '../actions';
 
 
+
 class MovieDetails extends Component {
     constructor(props){
         super(props)
@@ -64,6 +65,14 @@ class MovieDetails extends Component {
                                 />
                             </CardInfoLeft>
                             <CardInfoRight>
+                                <CardSectionText>
+                                    <Image
+                                    style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
+                                    source={{uri: "https://www.pocketpicturesltd.com/wp-content/uploads/2018/06/imdb.png"}}
+                                    />
+                                    <Text>  </Text>
+                                    {currentMovie.ratings.imdb}
+                                </CardSectionText>
 
                                 <CardSectionText>
                                     <Text>Útgáfuár: </Text>
