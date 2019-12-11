@@ -68,6 +68,7 @@ class MovieDetails extends Component {
                                 />
                             </CardInfoLeft>
                             <CardInfoRight>
+                                
                                 <CardSectionText>
                                     <Image
                                     style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
@@ -98,6 +99,12 @@ class MovieDetails extends Component {
                                     })}
 
                                 </CardSectionText>
+
+                                <CardSectionText>
+                                    <Text>Aldurstakmark: </Text>
+                                    {currentMovie.certificate.is}
+                                </CardSectionText>
+
                             </CardInfoRight>
                         </CardInfoSection>
 
