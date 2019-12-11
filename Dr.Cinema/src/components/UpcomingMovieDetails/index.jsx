@@ -10,14 +10,15 @@ import CardInfoRight from '../common/CardInfoRight';
 import CardSectionText from '../common/CardSectionText';
 import { GetCurrentTrailer } from '../actions';
 
-const { height } = Dimensions.get('window');
+
 
 class UpcomingMovieDetails extends Component {
     constructor(props){
         super(props)
-
+        const { height } = Dimensions.get('window');
         this.state = {
-            screenHeight: 0,
+            screenHeight: height,
+            scrollEnabled: false,
         };
     }
     
@@ -26,19 +27,19 @@ class UpcomingMovieDetails extends Component {
         this.props.navigation.navigate('TrailerDetailView')
     }
     
-    onContentSizeChange = (contentWidth, contentHeight) => {
-        this.setState({ screenHeight: contentHeight });
-      };
+    contentChanged(height){
+        if(this.state.screenHeight-100 < height){
+          this.setState({scrollEnabled:true})
+          return
+        }
+        this.setState({scrollEnabled:false})
+      }
 
     render(){
         const { currentMovie } = this.props;
-        const scrollEnabled = this.state.screenHeight > height+2;
         return(
             <SafeAreaView>
-            <ScrollView
-                        scrollEnabled={scrollEnabled}
-                        onContentSizeChange={this.onContentSizeChange}
-            >
+            <ScrollView scrollEnabled={this.state.scrollEnabled} onContentSizeChange={(w,h)=>{this.contentChanged(h)}}>
                 <Card>
                     <CardSection>
                         {currentMovie.title}
@@ -76,8 +77,8 @@ class UpcomingMovieDetails extends Component {
                             {currentMovie.plot}
                         </CardSectionSmaller>
                         
-                        <CardSectionText>
-                            <Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
+                        
+                        <CardSectionText><Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
                             {currentMovie.trailers != undefined ?
                             currentMovie.trailers.map(allTrailers =>(
                                 allTrailers.results.map(trailer =>(
