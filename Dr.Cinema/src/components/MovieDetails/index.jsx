@@ -61,7 +61,6 @@ class MovieDetails extends Component {
                         {currentMovie.title}
                     </CardSection>
                     
-                    
                         <CardInfoSection>
                             <CardInfoLeft>
                                 <Image
@@ -69,22 +68,26 @@ class MovieDetails extends Component {
                                     source={{uri: currentMovie.poster}}
                                 />
                             </CardInfoLeft>
+                            
                             <CardInfoRight>
-                                    <TouchableHighlight 
-                                    onPress={() => this.goToURL(imdbUrl)}
-                                    underlayColor = 'transparent'
-                                    >
-                                    <Image
-                                        style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
-                                        source={{uri: "https://www.pocketpicturesltd.com/wp-content/uploads/2018/06/imdb.png"}}
-                                    />
-                                    </TouchableHighlight>
-                                    <CardSectionText>
-                                    <Text>  </Text>
-                                    {currentMovie.ratings.imdb}
-                                    
-                                </CardSectionText>
-                                
+                                <View style={{flexDirection: 'row'}}>
+                                    <View>
+                                        <TouchableHighlight 
+                                        onPress={() => this.goToURL(imdbUrl)}
+                                        underlayColor = 'transparent'
+                                        >
+                                            <Image
+                                                style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
+                                                source={{uri: "https://www.pocketpicturesltd.com/wp-content/uploads/2018/06/imdb.png"}}
+                                            />
+                                        </TouchableHighlight>
+                                    </View>
+                                    <View style={{paddingLeft: 5}}>
+                                        <CardSectionText>
+                                            {currentMovie.ratings.imdb}
+                                        </CardSectionText>
+                                    </View>
+                                </View>
 
                                 <CardSectionText>
                                     <Text>Útgáfuár: </Text>
