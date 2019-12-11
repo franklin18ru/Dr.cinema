@@ -79,7 +79,6 @@ const mapStateToProps = function(state) {
 
 Upcoming.propTypes = {
     token: PropTypes.string,
-
 }
 
 const styles = {

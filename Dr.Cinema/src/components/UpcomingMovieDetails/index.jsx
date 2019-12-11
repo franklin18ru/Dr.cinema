@@ -11,7 +11,6 @@ import CardSectionText from '../common/CardSectionText';
 import { GetCurrentTrailer } from '../actions';
 
 
-
 class UpcomingMovieDetails extends Component {
     constructor(props){
         super(props)
@@ -91,9 +90,6 @@ class UpcomingMovieDetails extends Component {
                                 </TouchableHighlight>
                             ))))
                             :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
-                        
-                        
-                    
                 </Card>
             </ScrollView>
             </SafeAreaView>

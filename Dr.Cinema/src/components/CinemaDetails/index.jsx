@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Button, Image, TouchableHighlight, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableHighlight, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { GetCinemaMovies } from '../../services';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';

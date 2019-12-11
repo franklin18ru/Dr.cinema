@@ -2,7 +2,6 @@ import React, { Component }  from 'react';
 import { WebView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-
 class TrailerDetail extends Component {
     constructor(props){
         super(props)
