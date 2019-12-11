@@ -16,7 +16,7 @@ class Home extends Component {
           borderBottomWidth: 0,
         },
         title:'Kvikmyndahús',
-        headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} style={styles.plus} reverse 
+        headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} reverse 
         onPress={()=>{props.navigation.toggleDrawer()}}/>
         }};
    

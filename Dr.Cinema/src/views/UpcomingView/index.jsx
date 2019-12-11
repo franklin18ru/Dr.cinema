@@ -15,7 +15,7 @@ class UpcomingView extends Component {
         },
         headerTintColor: 'white',
         title:'Upcoming Movies',
-        headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} style={styles.plus} reverse 
+        headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} reverse 
         onPress={()=>{props.navigation.toggleDrawer()}}/>
         }};
    
