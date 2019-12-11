@@ -123,7 +123,7 @@ class MovieDetails extends Component {
                             {currentMovie.plot}
                         </CardSectionSmaller>
                         <CardSectionText><Text style = {{fontSize: 20}}>Sýningarbrot:</Text></CardSectionText>
-                            {currentMovie.trailers[0].results[0] != undefined ?
+                            {currentMovie.trailers[0] != undefined ?
                             currentMovie.trailers.map(allTrailers =>(
                                 allTrailers.results.map((trailer,index) =>(
                                     <TouchableHighlight key={trailer.id} onPress={() => this.goToTrailer(trailer)}>
