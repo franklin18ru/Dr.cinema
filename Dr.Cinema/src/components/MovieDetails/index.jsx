@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView } from 'react-native';
+import { Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView, View } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
@@ -68,6 +68,7 @@ class MovieDetails extends Component {
                                 />
                             </CardInfoLeft>
                             <CardInfoRight>
+                                
                                 <CardSectionText>
                                     <Image
                                     style={{width: 30, height: 20, overflow: 'visible', backfaceVisibility: 'visible'}}
@@ -98,6 +99,12 @@ class MovieDetails extends Component {
                                     })}
 
                                 </CardSectionText>
+
+                                <CardSectionText>
+                                    <Text>Aldurstakmark: </Text>
+                                    {currentMovie.certificate.is}
+                                </CardSectionText>
+
                             </CardInfoRight>
                         </CardInfoSection>
 
