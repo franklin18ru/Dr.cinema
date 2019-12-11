@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight, Image, ActivityIndicator } from 'react-native';
+import { View, ScrollView, TouchableHighlight, Image, ActivityIndicator } from 'react-native';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
@@ -17,8 +17,6 @@ class Upcoming extends Component {
         super(props)
     }
     async componentWillMount(){
-       
-
         const upcomingMovies = await GetComingSoonMovies(this.props.token);
 
         upcomingMovies.sort(function(a,b){

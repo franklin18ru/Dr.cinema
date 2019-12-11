@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, ScrollView, TouchableHighlight, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import Card from '../common/Card';
-import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAuthentication } from '../../services/authentication';
 import { GetAllCinemas } from '../../services';
 import { GetToken, GetCinemas, GetCurrentCinema } from '../actions';
-import CardSectionSmaller from '../common/CardSectionSmaller';
-import CardSectionText from '../common/CardSectionText';
 import CardInfoSection from '../common/CardInfoRight';
-import CardInfoSectionTop from '../common/CardSectionTop';
 import CardSectionTop from '../common/CardSectionTop';
 import CardSectionBottom from '../common/CardSectionBottom';
 

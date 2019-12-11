@@ -13,7 +13,6 @@ import CardInfoLeft from '../common/CardInfoLeft';
 import CardInfoRight from '../common/CardInfoRight';
 import CardSectionText from '../common/CardSectionText';
 
-const { height } = Dimensions.get('window');
 
 class CinemaDetails extends Component {
     constructor(props){

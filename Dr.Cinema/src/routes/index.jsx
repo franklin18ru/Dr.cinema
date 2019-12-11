@@ -10,8 +10,6 @@ import UpcomingView from '../views/UpcomingView';
 import UpcomingMovieDetailsView from '../views/UpcomingMovieDetailsView';
 import TrailerDetailView from '../views/TrailerDetailView';
 
-
-
 const StackNavigator = createStackNavigator({
     Home,
     CinemaDetailsView,

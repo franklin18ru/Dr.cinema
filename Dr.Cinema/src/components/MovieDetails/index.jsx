@@ -40,7 +40,6 @@ class MovieDetails extends Component {
         Linking.openURL(url)
     }
     async goToTrailer(trailer){
-        // Add to reducer and navigation to trailer view
         await this.props.GetCurrentTrailer(trailer)
         this.props.navigation.navigate('TrailerDetailView')
         // Linking.openURL(trailer.url)

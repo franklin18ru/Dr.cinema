@@ -1,8 +1,3 @@
-// FETCH API DATA SHOULD RESIDE HERE
-
-// EACH SERVICE FUNCTION SHOULD TAKE token IN AS AN PARAMETER
-// MOVIES HOLD TIMES ON WHAT CINEMA IT'S SHOWN
-
 export const GetAllCinemas = async (token) => {
 
     const result = await fetch(`http://api.kvikmyndir.is/theaters`, {
@@ -20,6 +15,7 @@ export const GetAllCinemas = async (token) => {
       console.error(error);
       return [];
     });
+    // Remove <br> and <b>
     const newResult = result.map(cinema =>{
         if(cinema.description != null){
             var desc = cinema.description.replace(/<\/?[^>]+>/gi, '');
@@ -113,24 +109,3 @@ export const GetCinemaMovies = async (token,cinemaId) => {
     });
     return cinemaMovies
 };
-
-
-
-// export const GetTest = async (token) => {
-//     const result = await fetch(`http://api.kvikmyndir.is/movies?title=Ford%20V%20Ferrari`, {
-//         method: 'GET',
-//         headers: {
-//             'x-access-token': token,
-//         }
-//         })
-//         .then((response) => response.json())
-//         .then((responseJson) => {
-
-//         return responseJson;
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       return [];
-//     });
-//     console.log(result);
-// };

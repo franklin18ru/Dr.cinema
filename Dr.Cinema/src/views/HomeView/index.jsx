@@ -3,8 +3,6 @@ import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Cinemas from '../../components/Cinemas';
 
-
-
 class Home extends Component {
   
     static navigationOptions = function(props) {
@@ -32,9 +30,5 @@ class Home extends Component {
     }
 }
 
-
-const styles = {
-  
-}
 
 export default Home;

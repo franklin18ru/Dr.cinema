@@ -3,8 +3,6 @@ import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Upcoming from '../../components/Upcoming';
 
-
-
 class UpcomingView extends Component {
   
     static navigationOptions = function(props) {
@@ -29,11 +27,6 @@ class UpcomingView extends Component {
           </View>
         );
     }
-}
-
-
-const styles = {
-  
 }
 
 export default UpcomingView;
