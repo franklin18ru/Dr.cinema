@@ -1,8 +1,6 @@
 import React, { Component }  from 'react';
-import { Platform, View } from 'react-native';
+import { WebView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-
-
 
 
 class TrailerDetail extends Component {
@@ -10,14 +8,30 @@ class TrailerDetail extends Component {
         super(props)
         
     }
-
     render(){
         const { trailer } = this.props
         return(
-            <View></View>
+
+            <WebView
+            useWebKit={true}
+            style={styles.container}
+            javaScriptEnabled={true}
+            source={{
+                uri: trailer.url,
+            }}
+            />
+        
         );
     }
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#ecf0f1',
+    },
+  });
 
 const mapStateToProps = function(state) {
     return {

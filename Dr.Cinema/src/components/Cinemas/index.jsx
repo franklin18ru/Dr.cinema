@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
@@ -80,7 +80,7 @@ class Cinemas extends Component {
                                 </View>
                             </TouchableHighlight>
                         ))
-                        :<Text style={styles.text}>Loading</Text>}
+                        :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
                     </Card>
                 </View>
                 </SafeAreaView>
@@ -103,6 +103,15 @@ Cinemas.propTypes = {
 const styles = {
     text:{
         color: 'white'
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center'
+      },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10
     }
 }
 

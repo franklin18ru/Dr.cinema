@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView, View } from 'react-native';
+import { View ,Text, ScrollView, Image, TouchableHighlight, Linking, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
@@ -122,7 +122,7 @@ class MovieDetails extends Component {
                                         </CardSectionSmaller>
                                     </TouchableHighlight>
                             ))))
-                            :<Text>Loading</Text>}
+                            :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
                         
                         <CardSectionText><Text style={{fontSize: 20}}>Sýningartímar: </Text></CardSectionText>
                         {showtimes != undefined ?
@@ -136,7 +136,7 @@ class MovieDetails extends Component {
 
                             </TouchableHighlight>
                         ))))
-                         :<Text>Loading</Text>}
+                         :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
                     
                 </Card>
             </ScrollView>
@@ -151,6 +151,21 @@ const mapStateToProps = function(state) {
         currentCinema: state.currentCinemaReducer.cinema,
         currentMovie: state.currentMovieReducer.movie,
         showtimes: state.currentMovieShowtimesReducer.showtimes
+    }
+}
+
+const styles = {
+    text:{
+        color: 'white'
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center'
+      },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10
     }
 }
 
