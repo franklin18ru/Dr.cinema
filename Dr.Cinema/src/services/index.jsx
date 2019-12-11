@@ -20,7 +20,14 @@ export const GetAllCinemas = async (token) => {
       console.error(error);
       return [];
     });
-    return result;
+    const newResult = result.map(cinema =>{
+        if(cinema.description != null){
+            var desc = cinema.description.replace(/<\/?[^>]+>/gi, '');
+            cinema.description = desc;
+        }
+        return cinema
+    });
+    return newResult;
 };
 
 export const GetComingSoonMovies = async (token) => {
