@@ -62,20 +62,21 @@ class CinemaDetails extends Component {
                                 {currentCinema.website}
                             </CardSectionSmaller>
                         </Panel>
-                        
-                    
+
+
                         <CardSection>
                             Myndir
                         </CardSection>
                         {this.props.cinemaMovies != undefined ? this.props.cinemaMovies.map(movie => (
                             <TouchableHighlight key={movie.id}
-                            onPress={() => this.goToMovieScreen(movie)}>
+                            onPress={() => this.goToMovieScreen(movie)}
+                            underlayColor= 'transparent'>
                             <View style={{ backgroundColor : '#23303b', margin: 5, borderRadius: 5}}>
                                 <CardSection>
                                         {movie.title}
                                 </CardSection>
                             <CardInfoSection>
-                                
+
                                 <CardInfoLeft>
                                     <Image
                                         style={{ width: 150, height: 200, overflow: 'visible', marginBottom: 10}}
@@ -95,8 +96,8 @@ class CinemaDetails extends Component {
                                             movie.genres.length == index+1 ?
                                             <Text key={genre.ID}>  {genre.Name} </Text> :
                                             <Text key={genre.ID}> {genre.Name}, </Text>);
-                                        
-                                        
+
+
                                     })}
                                     </CardSectionText>
                                 </CardInfoRight>
@@ -107,7 +108,7 @@ class CinemaDetails extends Component {
                         ))
                         :<View style={[styles.container, styles.horizontal]}><ActivityIndicator size='large' color='white' /></View>}
                     </Card>
-                    
+
             </ScrollView>
             </SafeAreaView>
         )

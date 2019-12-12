@@ -5,12 +5,11 @@ import { connect } from 'react-redux';
 class TrailerDetail extends Component {
     constructor(props){
         super(props)
-        
+
     }
     render(){
         const { trailer } = this.props
         return(
-
             <WebView
             useWebKit={true}
             style={styles.container}
@@ -19,7 +18,7 @@ class TrailerDetail extends Component {
                 uri: trailer.url,
             }}
             />
-        
+
         );
     }
 }

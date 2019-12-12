@@ -37,7 +37,7 @@ class Cinemas extends Component {
         await this.props.GetToken(token);
 
         const cinemas = await GetAllCinemas(this.props.token);
- 
+
         cinemas.sort(function(a,b){
             let stringA = a.name.replace(',','').toLowerCase();
             let stringB = b.name.replace(',','').toLowerCase();
@@ -45,7 +45,7 @@ class Cinemas extends Component {
             if(stringA > stringB){return 1;}
             return 0;
         })
-  
+
         await this.props.GetCinemas(cinemas);
 
     }
@@ -63,7 +63,8 @@ class Cinemas extends Component {
                     <Card>
                         {this.props.cinemas != undefined ? this.props.cinemas.map(cinema => (
                             <TouchableHighlight key={cinema.id}
-                            onPress={() => this.goToCinemaScreen(cinema)}>
+                            onPress={() => this.goToCinemaScreen(cinema)}
+                            underlayColor= 'transparent'>
                                 <View style={{ backgroundColor : '#23303b', margin: 7, borderRadius: 5}}>
                                 <CardInfoSection>
                                     <CardSectionTop>
@@ -71,7 +72,7 @@ class Cinemas extends Component {
                                     </CardSectionTop>
                                     <CardSectionBottom>
                                         {cinema.website}
-                                    </CardSectionBottom>                                    
+                                    </CardSectionBottom>
                                 </CardInfoSection>
                                 </View>
                             </TouchableHighlight>
