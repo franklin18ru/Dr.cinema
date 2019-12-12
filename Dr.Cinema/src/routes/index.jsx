@@ -24,8 +24,8 @@ const SecondStackNavigator = createStackNavigator({
 });
 
 const AppNavigator = createDrawerNavigator({
-    Cinemas: StackNavigator,
-    Upcoming: SecondStackNavigator
+    Kvikmyndarhús: StackNavigator,
+    Væntanlegt: SecondStackNavigator
 
 
   });

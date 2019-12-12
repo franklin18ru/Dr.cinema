@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import Upcoming from '../../components/Upcoming';
 
 class UpcomingView extends Component {
-  
+
     static navigationOptions = function(props) {
       return {
         headerTitleStyle: {
@@ -14,11 +14,11 @@ class UpcomingView extends Component {
           backgroundColor: '#23303b',
         },
         headerTintColor: 'white',
-        title:'Upcoming Movies',
-        headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} reverse 
+        title:'Væntanlegar Kvikmyndir',
+        headerLeft: <Icon name='ios-menu' type='ionicon' color='transparent' size={30} reverse
         onPress={()=>{props.navigation.toggleDrawer()}}/>
         }};
-   
+
 
     render(){
         return(
