@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, ScrollView, TouchableHighlight, Dimensions, SafeAreaView, ActivityIndicator } from 'react-native';
 import Card from '../common/Card';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { getAuthentication } from '../../services/authentication';
 import { GetAllCinemas } from '../../services';
 import { GetToken, GetCinemas, GetCurrentCinema } from '../actions';
@@ -90,11 +89,6 @@ const mapStateToProps = function(state) {
         token: state.tokenReducer.token,
         cinemas: state.cinemaReducer.cinemas
     }
-}
-
-Cinemas.propTypes = {
-    token: PropTypes.string,
-    cinemas: PropTypes.array
 }
 
 const styles = {

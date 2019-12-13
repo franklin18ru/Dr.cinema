@@ -3,7 +3,6 @@ import { View, ScrollView, TouchableHighlight, Image, ActivityIndicator } from '
 import Card from '../common/Card';
 import CardSection from '../common/CardSection';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { GetComingSoonMovies } from '../../services';
 import { GetUpcomingMovies, GetCurrentUpcomingMovie } from '../actions';
 import CardInfoRight from '../common/CardInfoRight';
@@ -40,8 +39,8 @@ class Upcoming extends Component {
             <ScrollView>
                 <View style={{paddingLeft:5,paddingRight:5}}>
                     <Card>
-                        {this.props.upcomingMovies != undefined ? this.props.upcomingMovies.map(movie => (
-                            <TouchableHighlight key={movie.id}
+                        {this.props.upcomingMovies != undefined ? this.props.upcomingMovies.map((movie,index) => (
+                            <TouchableHighlight key={index}
                             onPress={() => {this.goToMovieScreen(movie)}}>
                             <View style={{ backgroundColor : '#23303b', margin: 5, borderRadius: 5}}>
                                 <CardSection>
@@ -75,10 +74,6 @@ const mapStateToProps = function(state) {
         token: state.tokenReducer.token,
         upcomingMovies: state.upcomingMoviesReducer.movies
     }
-}
-
-Upcoming.propTypes = {
-    token: PropTypes.string,
 }
 
 const styles = {
